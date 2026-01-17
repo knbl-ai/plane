@@ -1,4 +1,4 @@
-export const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+export const MAX_FILE_SIZE = 200 * 1024 * 1024; // 200MB
 
 export const ACCEPTED_AVATAR_IMAGE_MIME_TYPES_FOR_REACT_DROPZONE = {
   "image/jpeg": [],
