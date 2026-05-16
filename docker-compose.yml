@@ -158,6 +158,8 @@ services:
       context: ./apps/proxy
       dockerfile: Dockerfile.ce
     restart: always
+    env_file:
+      - .env
     ports:
       - ${LISTEN_HTTP_PORT}:80
       - ${LISTEN_HTTPS_PORT}:443

@@ -173,7 +173,7 @@ def create_mention_notification(project, notification_comment, issue, actor_id, 
                 "id": str(activity.get("id")),
                 "verb": str(activity.get("verb")),
                 "field": str(activity.get("field")),
-                "actor": str(activity.get("actor_id")),
+                "actor": str(triggered_by_id),
                 "new_value": str(activity.get("new_value")),
                 "old_value": str(activity.get("old_value")),
                 "old_identifier": (str(activity.get("old_identifier")) if activity.get("old_identifier") else None),
@@ -494,8 +494,8 @@ def notifications(
                                         "issue_activity": {
                                             "id": str(issue_activity.get("id")),
                                             "verb": str(issue_activity.get("verb")),
-                                            "field": str("mention"),
-                                            "actor": str(issue_activity.get("actor_id")),
+                                            "field": str(issue_activity.get("field")),
+                                            "actor": str(actor_id),
                                             "new_value": str(issue_activity.get("new_value")),
                                             "old_value": str(issue_activity.get("old_value")),
                                             "old_identifier": (
@@ -634,7 +634,7 @@ def notifications(
                                                 "id": str(issue_activity.get("id")),
                                                 "verb": str(issue_activity.get("verb")),
                                                 "field": str("mention"),
-                                                "actor": str(issue_activity.get("actor_id")),
+                                                "actor": str(actor_id),
                                                 "new_value": str(issue_activity.get("new_value")),
                                                 "old_value": str(issue_activity.get("old_value")),
                                                 "old_identifier": (

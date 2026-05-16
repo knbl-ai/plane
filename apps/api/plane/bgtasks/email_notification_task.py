@@ -113,12 +113,18 @@ def create_payload(notification_data):
                         else None
                     )
 
-                if not data.get("actor_id", {}).get("activity_time", False):
-                    data[actor_id]["activity_time"] = str(
-                        datetime.fromisoformat(issue_activity.get("activity_time").rstrip("Z")).strftime(
-                            "%Y-%m-%d %H:%M:%S"
-                        )
-                    )
+                if not data.get(actor_id, {}).get("activity_time", False):
+                    activity_time = issue_activity.get("activity_time")
+                    if activity_time:
+                        try:
+                            # Handle ISO format strings like '2026-01-17T15:57:43.868863Z'
+                            parsed_time = datetime.fromisoformat(activity_time.replace("Z", "+00:00"))
+                            data[actor_id]["activity_time"] = parsed_time.strftime("%Y-%m-%d %H:%M:%S")
+                        except ValueError:
+                            # Fallback to current time if parsing fails
+                            data[actor_id]["activity_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+                    else:
+                        data[actor_id]["activity_time"] = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     return data
 
@@ -161,6 +167,7 @@ def send_email_notification(issue_id, notification_data, receiver_id, email_noti
 
             # Skip if base api is not present
             if not base_api:
+                logging.getLogger("plane.worker").error(f"Base API URL not found in Redis for issue {issue_id}. Skipping email notification.")
                 return
 
             data = create_payload(notification_data=notification_data)
