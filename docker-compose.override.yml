@@ -1,0 +1,10 @@
+services:
+    web:         { image: ghcr.io/nazar165/plane-web:preview }
+    admin:       { image: ghcr.io/nazar165/plane-admin:preview }
+    space:       { image: ghcr.io/nazar165/plane-space:preview }
+    api:         { image: ghcr.io/nazar165/plane-backend:preview }
+    worker:      { image: ghcr.io/nazar165/plane-backend:preview }
+    beat-worker: { image: ghcr.io/nazar165/plane-backend:preview }
+    migrator:    { image: ghcr.io/nazar165/plane-backend:preview }
+    live:        { image: ghcr.io/nazar165/plane-live:preview }
+    proxy:       { image: ghcr.io/nazar165/plane-proxy:preview }
